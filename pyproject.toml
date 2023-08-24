@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "clean-architeture-python"
+version = "0.0.1"
+description = ""
+authors = ["Nayanna Nara <nayanna501@gmail.com>"]
+readme = "README.md"
+packages = [{include = "clean_architeture_python"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^2.17.5"
+pre-commit = "^3.3.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
