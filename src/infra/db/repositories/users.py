@@ -1,9 +1,11 @@
-from typing import Any
-from src.infra.db.entities.users import UsersModel
+from typing import Any, List
+from src.data.interfaces.repository import UsersRepositoryInterface
+from src.domain.models.users import Users
+from src.infra.db.models.users import UsersModel
 from src.infra.db.settings.connection import database_connection_handler
 
 
-class UsersRepository:
+class UsersRepository(UsersRepositoryInterface):
     @classmethod
     def insert_user(
         cls: "UsersRepository", first_name: str, last_name: str, age: int
@@ -19,7 +21,7 @@ class UsersRepository:
                 raise exception
 
     @classmethod
-    def select_user(cls: "UsersRepository", first_name: str) -> Any:
+    def select_user(cls: "UsersRepository", first_name: str) -> List[Users]:
         with database_connection_handler as database:
             users = (
                 database.session.query(UsersModel)

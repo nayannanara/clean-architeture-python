@@ -3,8 +3,7 @@ name = "clean-architeture-python"
 version = "0.0.1"
 description = ""
 authors = ["Nayanna Nara <nayanna501@gmail.com>"]
-readme = "README.md"
-packages = [{include = "clean_architeture_python"}]
+packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -12,6 +11,10 @@ sqlalchemy = "^2.0.20"
 mysql-connector-python = "^8.1.0"
 pytest = "^7.4.0"
 pymysql = "^1.1.0"
+pytest-cov = "^4.1.0"
+pytest-mock = "^3.12.0"
+flask = "^3.0.1"
+cerberus = "^1.3.5"
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^2.17.5"
@@ -20,3 +23,43 @@ pre-commit = "^3.3.3"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+markers = [
+    "integration"
+]
+addopts = [
+  "--strict-config",
+  "--strict-markers",
+  "--ignore=docs_src",
+]
+xfail_strict = true
+junit_family = "xunit2"
+filterwarnings = [
+    "error",
+    # TODO: needed by asyncio in Python 3.9.7 https://bugs.python.org/issue45097, try to remove on 3.9.8
+    'ignore:The loop argument is deprecated since Python 3\.8, and scheduled for removal in Python 3\.10:DeprecationWarning:asyncio',
+    'ignore:starlette.middleware.wsgi is deprecated and will be removed in a future release\..*:DeprecationWarning:starlette',
+    # TODO: remove after upgrading HTTPX to a version newer than 0.23.0
+    # Including PR: https://github.com/encode/httpx/pull/2309
+    "ignore:'cgi' is deprecated:DeprecationWarning",
+    # For passlib
+    "ignore:'crypt' is deprecated and slated for removal in Python 3.13:DeprecationWarning",
+    # TODO remove pytest-cov
+    'ignore::pytest.PytestDeprecationWarning:pytest_cov',
+    # From gssapi, but with improper stack
+    'ignore:_SixMetaPathImporter.*not found:ImportWarning'
+]
+
+[tool.coverage.run]
+parallel = true
+source = [
+    "docs_src",
+    "tests",
+    "fastapi"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  '@(abc\.)?abstractmethod',
+]

@@ -1,0 +1,1 @@
+# esse código foi replicado das aulas de uma [playlist](https://www.youtube.com/watch?v=AzKrK4XtTtM&list=PLAgbpJQADBGK0opZ8ZuDX3zDjQck_QKMy&index=) no youtube, mas com algumas mudanças próprias para fins de estudo.

@@ -1,4 +1,4 @@
-from src.infra.db.entities.base import BaseModel
+from src.infra.db.models.base import BaseModel
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import String, Integer
 

@@ -7,8 +7,11 @@ test:
 test-matching:
 	poetry run pytest -vv -k $(K)
 
-generate-coverage:
-	@poetry run pytest $(COVERAGE_OPTS) ${1:-tests-local}
+coverage:
+	@poetry run pytest --cov=src --cov-report=term-missing --cov-report=xml ./tests/
 
 update: poetry.lock
 	@poetry update
+
+run:
+	@poetry run python run.py
